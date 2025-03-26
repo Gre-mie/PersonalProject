@@ -18,8 +18,8 @@ Python 3.8 or greater and Discord.py
 
 Make sure permissions on following files are exicutable: (`ls -l`)
 
-    - setup
-    - activate
+- setup
+- activate
 
 
 use `source` or `.` operator to run setup then activate
