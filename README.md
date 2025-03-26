@@ -16,7 +16,7 @@ All messages in the quesiton channel will be deleted each week to prevent respon
 Python 3.8 or greater and Discord.py
 
 
-Make sure permissions on following files are exicutable: `ls -l`
+Make sure permissions on following files are exicutable: (`ls -l`)
 
     - setup
     - activate
@@ -24,9 +24,10 @@ Make sure permissions on following files are exicutable: `ls -l`
 
 use `source` or `.` operator to run setup then activate
 
-`. setup`
-
-`. activate`
+```
+. setup
+. activate
+```
 
 (to deactivate the envronment use `deactivate`)
 
