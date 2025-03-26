@@ -26,21 +26,18 @@ use `source` or `.` operator to run setup then activate
 
 ```
 . setup
-. activate
 ```
 
-(to deactivate the envronment use `deactivate`)
 
-## Activation/Deactivation
+(setup will automatically activate the environment, to deactivate the environment use `deactivate`, to reactivate the environment use `. ./activate`)
 
-`source venv/bin/activate`
-
-`deactivate`
 
 ## Updateing
 
 //
 
 # Using the project
+
+## launching the bot
 
 //
