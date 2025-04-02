@@ -7,46 +7,86 @@ Open page preview in VScode: **ctrl + shift + v**
 # Structure (database)
 
 ```
-Global Guilds Dict 
+Database (global)
     |
-    |_________ Guilds (wrapper) object
+    |_________ Guilds (wrapper) objects
                         |
-                        |___________ Sugestions Objects
+                        |___________ Sugestion Objects
                         |
-                        |___________ Questions Objects
+                        |___________ Question Objects
 ```
 
 # Object Structures
 
-## Global Dict
+## Database Object
 
 An object with methods to add a community when the bot is invited to a server.
 
-Acts as a storage space for other object
+Acts as a database object for other objects
 
 - [on_guild_join Event](https://discordpy.readthedocs.io/en/stable/api.html?highlight=on_guild_join#discord.on_guild_join): this event is triggured when the bot creates or joins (is invited to) a server
-- [guild Object](https://discordpy.readthedocs.io/en/stable/api.html?highlight=on_guild_join#discord.Guild): this object stores informations such as the owner object, owner ID, the guilds ID, channels/text channels, 
+- [Discord.Guild](https://discordpy.readthedocs.io/en/stable/api.html?highlight=on_guild_join#discord.Guild): this object stores informations such as the owner object, owner ID, the guild ID, channels/text channels, 
 
 **Note**: There is a property called `system_channel` that might be helpful for sending logs. If no system channel is set it returns `None`.
+
+### Uage
+
+```
+if not database:
+    database = Database()
+```
 
 ### Variables:
 
 ```
-Global Guilds Dict(void):
+Database(void):
 {
     guilds {
-        guild (discord) name, str: Guild Object,
+        guild (discord) name, str: Guild Object,        # might need to use: 
+                                                        # guild (discord) ID, int: {guild (discord) name, str: Guild Object}
+                                                        # due to needing to check the ID before adding the object, 
+                                                        # might make it quicker, not sure
     }
 }
 ```
 
 ### Methods:
 
+`add_guild(Discord.Guild)`<br>
+Triggered by Event: **on_guild_join**<br>
+Add a community to the communities dict, saves the Discord.Guild object in the Guild (wrapper) Object
+    
+- should check if the new guild is already in the dict
+
 ```
-add_guild(guild object)
-# add a community to the communities dict, saves the Discord.Guilds object in the Guild (wrapper) Object
+# not Discord.Guild ID in self.guilds.keys() 
+    # add Guild Object(# set the variables)
+```
 
+---
+    
+`remove_guild(Discord.Guild)`<br>
+might be triggered when the bot is kicked from the server
 
+```
+# if Discord.Guild Id in self.guilds.keys():
+    # delete all objects inside the guild object arrays (may be recursive)
+    # delete the guild object ?
+    # delete the guild from the array ?
+```
+
+---
+
+`debug_print_guilds_tree()`<br>
+prints the guilds in a tree like structure with minimal info
+
+```
+#        guilds
+#            |________ guild name: guild ID
+#            |
+#            |________ guild name: guild ID
+#
+#        guilds: 2
 ```
 
 ## Guild (wrapper) Object
