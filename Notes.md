@@ -1,14 +1,15 @@
 # Bot Project Notes:
 
 boot.dev personal project
+
 Open page preview in VScode: **ctrl + shift + v**
 
 # Structure (database)
 
 ```
-Global Dict 
+Global Guilds Dict 
     |
-    |_________ community objects Dict
+    |_________ Guilds (wrapper) object
                         |
                         |___________ Sugestions Objects
                         |
@@ -19,26 +20,36 @@ Global Dict
 
 ## Global Dict
 
-An object with methods to add a community when the bot is invited to a server and populate the feilds
+An object with methods to add a community when the bot is invited to a server.
+
+Acts as a storage space for other object
+
+- [on_guild_join Event](https://discordpy.readthedocs.io/en/stable/api.html?highlight=on_guild_join#discord.on_guild_join): this event is triggured when the bot creates or joins (is invited to) a server
+- [guild Object](https://discordpy.readthedocs.io/en/stable/api.html?highlight=on_guild_join#discord.Guild): this object stores informations such as the owner object, owner ID, the guilds ID, channels/text channels, 
 
 ### Variables:
 
 ```
-Global Dict(void):
+Global Guilds Dict(void):
 {
-    communities {
-        community (discord) name: Community Object,
+    guilds {
+        guild (discord) name, str: Guild Object,
     }
 }
 ```
 
 ### Methods:
 
-add community(community data)
+```
+add_guild(guild object)
+# add a community to the communities dict, saves the Discord.Guilds object in the Guild (wrapper) Object
 
-- add a community to the communities dict
 
-## Community Object
+```
+
+## Guild (wrapper) Object
+
+A guild is a discord community server. The Discord.Guilds object cannot be extended. This means the object must be saved in a custom object (wrapper) in order to add things to it such as new variables and methods
 
 An object to store a Discord community and their questions.
 (Hoping this will help to solve the problem of not having a database and prevent differnt commities adding/deleting/editing/reciving the same list of questions)
@@ -46,14 +57,12 @@ An object to store a Discord community and their questions.
 ### Variables:
 
 ```
-Community():
+Guild():
 {
-    community (discord) Name= string
-    community (discord) ID= number
-    discord community owners discord info= {
-        name: discord username= string
-        ID: 
-    }
+    guild = Discord.Guild object (wrapped)
+    guild (discord) Name= string
+    guild (discord) ID= int
+    discord guild owners ID= int
 }
 ```
 
