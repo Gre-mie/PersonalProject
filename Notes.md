@@ -4,6 +4,10 @@ boot.dev personal project
 
 Open page preview in VScode: **ctrl + shift + v**
 
+# Terms
+
+**guild**, Discord.Guild object -  a discord community server.
+
 # Structure (database)
 
 ```
@@ -41,7 +45,7 @@ if not database:
 ```
 Database(void):
 {
-    guilds {
+    __guilds {
         guild (discord) name, str: Guild Object,        # might need to use: 
                                                         # guild (discord) ID, int: {guild (discord) name, str: Guild Object}
                                                         # due to needing to check the ID before adding the object, 
@@ -60,7 +64,7 @@ Add a community to the communities dict, saves the Discord.Guild object in the G
 
 ```
 # not Discord.Guild ID in self.guilds.keys() 
-    # add Guild Object(# set the variables)
+    # add Guild Object(Discord.Guild, )           # display form, used to populate guild object variables
 ```
 
 ---
@@ -89,45 +93,62 @@ prints the guilds in a tree like structure with minimal info
 #        guilds: 2
 ```
 
+---
+
 ## Guild (wrapper) Object
 
-A guild is a discord community server. The Discord.Guilds object cannot be extended. This means the object must be saved in a custom object (wrapper) in order to add things to it such as new variables and methods
-
-An object to store a Discord community and their questions.
+An object to store a Discord community and their questions.<br>
 (Hoping this will help to solve the problem of not having a database and prevent differnt commities adding/deleting/editing/reciving the same list of questions)
+
+**Note**: The Discord.Guild object cannot be extended. This means the object must be saved in a custom object (wrapper) to add new variables and methods
+
+### Usage
+
+This is a wrapper used to extend a Discord.Guild object.<br>
+Guid Objects are created using `database.add_guild(Discord.Guild)` to add a server to the database
 
 ### Variables:
 
 ```
-Guild():
+Guild(Discord.Guild, # variables set by the contents of a from):
 {
-    guild = Discord.Guild object (wrapped)
-    guild (discord) Name= string
-    guild (discord) ID= int
-    discord guild owners ID= int
+    __guild = Discord.Guild object (wrapped)
+
+    # These are NOT needed since the self.guild object will already have them. !! They are here as a reminder only !!
+    # guild (discord) Name= string
+    # guild (discord) ID= int
+    # discord guild owners ID= int
 
 
-    command_channel= channel ID
-    question_channel= channel ID
-    suggestion_channel= channel ID
+    __command_channel= channel ID           # possible needs a form
+    __question_channel= channel ID          # possible needs a form
+    __suggestion_channel= channel ID        # posisble needs a form
+
+    __admin_role= role ID                   # will need to be set by owner eg. set_amin_role(admin role name) # possible needs a form
 }
 ```
 
 ### Methods
-```
-set_channel(channel)
-# triggured with !c command by owner/admin
-# sets a channel variable
-    # returns error if a valid channel is not given "!c [channel name] or !c --[option] [channel name]"
-    # if --question option is given:
-        # sets the question_channel to given channel
-    # elif --sugestion option is given:
-        # sets the sugestion_channel to given channel
-    # else no valid option is given:
-        # sets the commands_channel to given channel
+
+`set_channel(channel, option=None)`<br>
+could be called using the contents of a from<br>
+triggured with !c command by owner/admin<br>
+sets a channel variable
     
+- returns error if a valid channel is not given "!c [channel name] or !c --[option] [channel name]"
+
+```
+    # if --question option is given:
+        # sets the question_channel to given channel ID
+    # elif --sugestion option is given:
+        # sets the sugestion_channel to given channel ID
+    # elif --admin-role option is given:
+        # sets the admin_role to given role ID
+    # else no valid option is given:
+        # sets the commands_channel to given channel ID
 ```
 
+---
 
 # COMMANDS
 
@@ -189,6 +210,7 @@ Questions should be saved in an array to allow them to be easily edited and dele
 !c [channel name]: sets a channel to be used for commands by the owner/admin. Untill this is set, all channels can use commands and possibly seen by everyone
 !c --question [channel name]: sets which channel will be used for asking questions. Until this is set, only the owner/admin will be able to use commands
 !c --sugestion [channel name]: sets which channel will be used for submitting suggested quesitons by Discord members. If this is not set, the question channel will be used instead
+!c --admin-role [role name]: sets the ID for the admin role using the admin role name
 
 !q : print all questions in the question array
 
