@@ -27,6 +27,8 @@ Acts as a storage space for other object
 - [on_guild_join Event](https://discordpy.readthedocs.io/en/stable/api.html?highlight=on_guild_join#discord.on_guild_join): this event is triggured when the bot creates or joins (is invited to) a server
 - [guild Object](https://discordpy.readthedocs.io/en/stable/api.html?highlight=on_guild_join#discord.Guild): this object stores informations such as the owner object, owner ID, the guilds ID, channels/text channels, 
 
+**Note**: There is a property called `system_channel` that might be helpful for sending logs. If no system channel is set it returns `None`.
+
 ### Variables:
 
 ```
@@ -63,11 +65,28 @@ Guild():
     guild (discord) Name= string
     guild (discord) ID= int
     discord guild owners ID= int
+
+
+    command_channel= channel ID
+    question_channel= channel ID
+    suggestion_channel= channel ID
 }
 ```
 
 ### Methods
-
+```
+set_channel(channel)
+# triggured with !c command by owner/admin
+# sets a channel variable
+    # returns error if a valid channel is not given "!c [channel name] or !c --[option] [channel name]"
+    # if --question option is given:
+        # sets the question_channel to given channel
+    # elif --sugestion option is given:
+        # sets the sugestion_channel to given channel
+    # else no valid option is given:
+        # sets the commands_channel to given channel
+    
+```
 
 
 # COMMANDS
@@ -118,13 +137,18 @@ date/time question was last edited=
 I will probably need help with setting up a way for discord community owners to create their own database for their questions)
 
 
-Possible structure:
+**Possible structure**:
+
+```
 questions = {ID:Object, ID:Object, ID:Object}
 suggested questions = {ID:Object, ID:Object, ID:Object}
-
-
+```
 
 Questions should be saved in an array to allow them to be easily edited and deleted.
+
+!c [channel name]: sets a channel to be used for commands by the owner/admin. Untill this is set, all channels can use commands and possibly seen by everyone
+!c --question [channel name]: sets which channel will be used for asking questions. Until this is set, only the owner/admin will be able to use commands
+!c --sugestion [channel name]: sets which channel will be used for submitting suggested quesitons by Discord members. If this is not set, the question channel will be used instead
 
 !q : print all questions in the question array
 
