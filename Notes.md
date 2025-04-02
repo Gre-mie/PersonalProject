@@ -70,7 +70,7 @@ Add a community to the communities dict, saves the Discord.Guild object in the G
 ---
     
 `remove_guild(Discord.Guild)`<br>
-might be triggered when the bot is kicked from the server
+Might be triggered when the bot is kicked from the server
 
 ```
 # if Discord.Guild Id in self.guilds.keys():
@@ -78,6 +78,16 @@ might be triggered when the bot is kicked from the server
     # delete the guild object ?
     # delete the guild from the array ?
 ```
+
+---
+
+`update_guilds()`<br>
+Iterates through the guilds array calling Guild Objet methods to update them
+
+- Delete any object with delete:true
+    + Guild._delete(questions array)
+    + Guild._delete(suggestions array)
+    + set date of last automatic update on guild object
 
 ---
 
@@ -123,13 +133,16 @@ Guild(Discord.Guild, # variables set by the contents of a from):
     __command_channel= channel ID           # possible needs a form
     __question_channel= channel ID          # possible needs a form
     __suggestion_channel= channel ID        # posisble needs a form
-
     __admin_role= role ID                   # will need to be set by owner eg. set_amin_role(admin role name) # possible needs a form
+
+    __sugestions= {}
+    __quesitons= {}
 }
 ```
 
 ### Methods
 
+SCOPE CREEP:<br>
 `set_channel(channel, option=None)`<br>
 could be called using the contents of a from<br>
 triggured with !c command by owner/admin<br>
@@ -146,6 +159,55 @@ sets a channel variable
         # sets the admin_role to given role ID
     # else no valid option is given:
         # sets the commands_channel to given channel ID
+```
+
+---
+
+SCOPE CREEP:<br>
+`_get_questions_info()`<br>
+returns a dictinary of information about the questions array
+
+```
+dict{
+    length: int length of array,
+    questions to be asked: int number of questions that are deleted:False && history:False,
+    quesitons asked: int number of quesitons that are history:ture,
+    questions set to be deleted: int number of questions that are deleted:True 
+    date of last cleanup: date the arrays were last automatically updated
+}
+```
+
+---
+
+SCOPE CREEP:<br>
+`_calculate_time_from_pressent(old_time, time_now)`<br>
+Helper function<br>
+calculates the amount of time between old_time and time_now<br>
+returns string
+
+```
+# example of what can be returned
+
+"45 mins"
+"2 days, 15 mins"
+"1 week, 4 days, 6 mins"
+"4 weeks +"
+```
+
+---
+
+SCOPE CREEP:<br>
+`_get_suggestion_info()`<br>
+returns a dictionary of information about the suggestions array
+
+```
+Returns dict{
+    length: int length of the array,
+    oldest submission: {id, date submited, # SCOPE CREEP: amount of time between submission and now}, 
+    latest submission: {id, date submitted, # SCOPE CREEP: amount of time between submission and now},
+    submissions set to be deleted: submissions set to delete:true
+    date of last cleanup: date the arrays were last automatically updated
+}
 ```
 
 ---
