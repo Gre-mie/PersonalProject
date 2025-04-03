@@ -237,6 +237,30 @@ Returns dict{
 
 ---
 
+# Text file
+
+Used to store text based messages.
+
+### Welcome message
+
+A message sent to the Guild Owner by DM when the bot is invited to their guild.
+
+- Display friendly thank you message for trying the bot
+- Display Bot Name and Developer/s Name
+- Display some simple starter commands with quick explination on where/how to use them `!commands --help`
+
+---
+
+### Setup message
+
+A message sent to the Guild Owner by DM after the welcom message to explain how to get set up with a form.
+
+- Display setup instructions "Fill out the form bellow to customise bot behaviour"
+
+**Note**: The form data submitted will need to be checked, eg, if role: "doesn't exist" is entered in the form, the role should be checked if exists before being set, and if doesn't exist an error should be logged (either to log channel if set or to channel command/form was entered in) notification of an error occuring should be sent to channel command/form was submitted in
+
+---
+
 # COMMANDS
 
 Responses to commands should be sent to the channel the command was used in unless its a special command for debugging
@@ -279,11 +303,8 @@ edit: changes the question content and set
 who last edited the question=
 date/time question was last edited=
 
-
-
 (**!!!Problem!!! LATER: POSSIBLE SCOPE CREEP**: It would be best if questions were put into a database to prevent multiple discord communities that invited the bot from adding questions to it that are used for all communities.
 I will probably need help with setting up a way for discord community owners to create their own database for their questions)
-
 
 **Possible structure**:
 
@@ -326,8 +347,8 @@ ANYONE can use these commands:
 !question : suggest a question, should bring up a form for users to submit suggested questions, question should be added to the suggested questions dict
 (SCOPE CREEP: permissions for links and images to be added might need to be set)
 
-!commands : prints a list of commands available to users
-!commands --help : prints a list of commands available to users with an explanation of what each command does
+!commands : prints a list of commands available to users, or all commands if owner/admin
+!commands --help : prints a list of commands available to users, or all commands if owner/admin, with an explanation of what each command does
 
 
 ----------------------------------------
