@@ -4,21 +4,34 @@ boot.dev personal project
 
 Open page preview in VScode: **ctrl + shift + v**
 
+---
+
 # Terms
 
-**guild**, Discord.Guild object -  a discord community server.
+- **guild**, Discord.Guild object -  a discord community server.
+
+### Interest
+
+The bot going offline and recreating the database object each time is a problem.<br>
+If the bot is online all the time there is a problem with with needing to update without running the whole script.<br>
+[Hot-reloading](https://discordpy.readthedocs.io/en/stable/ext/commands/extensions.html?highlight=reload) may be useful.
+
+
+---
 
 # Structure (database)
 
 ```
 Database (global)
     |
-    |_________ Guilds (wrapper) objects
+    |_________ Guilds (wrapper) object
                         |
-                        |___________ Sugestion Objects
+                        |___________ Sugestion Object
                         |
-                        |___________ Question Objects
+                        |___________ Question Object
 ```
+
+---
 
 # Object Structures
 
@@ -26,12 +39,24 @@ Database (global)
 
 An object with methods to add a community when the bot is invited to a server.
 
-Acts as a database object for other objects
+Acts as a container for Guild Objects
 
-- [on_guild_join Event](https://discordpy.readthedocs.io/en/stable/api.html?highlight=on_guild_join#discord.on_guild_join): this event is triggured when the bot creates or joins (is invited to) a server
+### Interest
+
+- [on_guild_join Event](https://discordpy.readthedocs.io/en/stable/api.html?highlight=on_guild_join#discord.on_guild_join): this event is triggered when the bot creates or joins (is invited to) a server
 - [Discord.Guild](https://discordpy.readthedocs.io/en/stable/api.html?highlight=on_guild_join#discord.Guild): this object stores informations such as the owner object, owner ID, the guild ID, channels/text channels, 
 
 **Note**: There is a property called `system_channel` that might be helpful for sending logs. If no system channel is set it returns `None`.
+
+### Testing
+
+Look into using `MagicMock` from `unittest.mock`<br>
+[MagicMock](https://docs.python.org/3/library/unittest.mock.html#quick-guide)
+
+- Create fake object `fake_object = MagicMock(Discord.Guild)`
+- Set variables, if needed `fake_object.id = 12345`
+- Set return value of methods, if needed `fake_object.__method_name = MagicMock(return_value=3)`
+
 
 ### Uage
 
