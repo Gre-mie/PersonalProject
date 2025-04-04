@@ -167,7 +167,7 @@ Guild(Discord.Guild, # variables set by the contents of a from):
 
 ### Methods
 
-SCOPE CREEP:<br>
+*SCOPE CREEP*:<br>
 `set_channel(channel, option=None)`<br>
 could be called using the contents of a from<br>
 triggured with !c command by owner/admin<br>
@@ -188,7 +188,7 @@ sets a channel variable
 
 ---
 
-SCOPE CREEP:<br>
+*SCOPE CREEP*:<br>
 `_get_questions_info()`<br>
 returns a dictinary of information about the questions array
 
@@ -204,7 +204,7 @@ dict{
 
 ---
 
-SCOPE CREEP:<br>
+*SCOPE CREEP*:<br>
 `_calculate_time_from_pressent(old_time, time_now)`<br>
 Helper function<br>
 calculates the amount of time between old_time and time_now<br>
@@ -221,7 +221,7 @@ returns string
 
 ---
 
-SCOPE CREEP:<br>
+*SCOPE CREEP*:<br>
 `_get_suggestion_info()`<br>
 returns a dictionary of information about the suggestions array
 
@@ -253,7 +253,7 @@ A message sent to the Guild Owner by DM when the bot is invited to their guild.
 
 ### Setup message
 
-A message sent to the Guild Owner by DM after the welcom message to explain how to get set up with a form.
+A message sent to the Guild Owner by DM after the welcome message to explain how to get set up with a form.
 
 - Display setup instructions "Fill out the form bellow to customise bot behaviour"
 
@@ -263,14 +263,24 @@ A message sent to the Guild Owner by DM after the welcom message to explain how 
 
 # COMMANDS
 
-Responses to commands should be sent to the channel the command was used in unless its a special command for debugging
+Responses to commands should be sent to correct channels if set, otherwise to the channel the command was sent in.
+
+## Public Commands
+
+Anyone can use these commands:
+
+`!question`: Submit a quesion, should bring up a form for users to submit suggested questions, questions should be text only by default, no links or images.<br>
+(*SCOPE CREEP*: Give a way for owner to set permissions for links and images to be added to questions for some/all users)<br>
+Question should be added to the suggested questions dict
+
+`!commands`: Prints a list of commands available to users, or all commands if owner/admin<br>
+`!commands --help`: Prints a list of commands available to users, or all commands if owner/admin, with a short explanation of what each command does
+
+`!manual`: If owner/admin, prints a manual simular to this page that explains the bot. If a user, will print public commands with a more in debth explination (part of the manual)
 
 ## Owner and Admin Commands
 
 Only the discord owner or admins should be able to use these commands:
-
-!cmd : list all available commands
-!cmd --help : list all available commands with an explanation of what the command does
 
 **(FOR NOW!)**
 Questions should be objects with data such as
@@ -340,15 +350,7 @@ Questions should be saved in an array to allow them to be easily edited and dele
 
 When printing questions the question Id should be displayed to allow for questions to be picked 
 
-## Public Commands
 
-ANYONE can use these commands:
-
-!question : suggest a question, should bring up a form for users to submit suggested questions, question should be added to the suggested questions dict
-(SCOPE CREEP: permissions for links and images to be added might need to be set)
-
-!commands : prints a list of commands available to users, or all commands if owner/admin
-!commands --help : prints a list of commands available to users, or all commands if owner/admin, with an explanation of what each command does
 
 
 ----------------------------------------
