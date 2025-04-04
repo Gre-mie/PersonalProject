@@ -22,13 +22,13 @@ If the bot is online all the time there is a problem with with needing to update
 # Structure (database)
 
 ```
-Database (global)
+Database (global object)
     |
-    |_________ Guilds (wrapper) object
+    |_________ Guilds (wrapper object)
                         |
-                        |___________ Sugestion Object
+                        |___________ Sugestion (Object)
                         |
-                        |___________ Question Object
+                        |___________ Question (Object)
 ```
 
 ---
@@ -237,6 +237,33 @@ Returns dict{
 
 ---
 
+# Functions file
+
+Used to store functions/helper functions
+
+---
+
+# Commands file
+
+A file to store documentation/information funcitons ment for users
+
+Command storage structure
+```
+command info
+    |
+    |__________ public
+    |               |_____ command
+    |                           |_____ options (list)
+    |                           |_____ explinaiton (string)
+    |
+    |__________ private
+                    |_____ command
+                                |_____ options (list)
+                                |_____ explinaiton (string)
+```
+
+---
+
 # Text file
 
 Used to store text based messages.
@@ -271,10 +298,10 @@ Anyone can use these commands:
 
 `!question`: Submit a quesion, should bring up a form for users to submit suggested questions, questions should be text only by default, no links or images.<br>
 (*SCOPE CREEP*: Give a way for owner to set permissions for links and images to be added to questions for some/all users)<br>
-Question should be added to the suggested questions dict
+Question object should be added to the suggested questions dict
 
-`!commands`: Prints a list of commands available to users, or all commands if owner/admin<br>
-`!commands --help`: Prints a list of commands available to users, or all commands if owner/admin, with a short explanation of what each command does
+`!commands`: Prints a list of public commands or all commands if owner/admin<br>
+`!commands --help`: Prints a list of public commands or all commands if owner/admin, with a short explanation of what each command does
 
 `!manual`: If owner/admin, prints a manual simular to this page that explains the bot. If a user, will print public commands with a more in debth explination (part of the manual)
 
